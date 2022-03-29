@@ -12,7 +12,7 @@ public class FixedCapacityStackOfStrings {
     }
 
     public String pop() {
-        return "fff";
+        return "fffff";
     }
 
     public boolean isEmpty() {
