@@ -1,11 +1,10 @@
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
-//https://algs4.cs.princeton.edu/13stacks/ResizingArrayQueue.java.html
-//TODO: Finish
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-
-public class ResizingArrayQueue<Item> {
+public class ResizingArrayQueue<Item> implements Iterable<Item> {
     private Item[] q;
     private int n = 0;
     private int tail = 0;
@@ -46,8 +45,28 @@ public class ResizingArrayQueue<Item> {
         return n == 0;
     }
 
-    public Item[] getQ() {
-        return q;
+
+    public Iterator<Item> iterator() {
+        return new ArrayIterator();
+    }
+
+    private class ArrayIterator implements Iterator<Item> {
+        private int i = 0;
+
+        public boolean hasNext() {
+            return i < n;
+        }
+
+        public void remove() {
+            throw new UnsupportedOperationException("Unsupported Operation");
+        }
+
+        public Item next() {
+            if (!hasNext()) throw new NoSuchElementException("No such element");
+            Item item = q[(i + head) % q.length];
+            i++;
+            return item;
+        }
     }
 
     public static void main(String[] args) {
@@ -56,11 +75,11 @@ public class ResizingArrayQueue<Item> {
             String s = StdIn.readString();
             if (s.equals("-")) StdOut.println("-" + queue.dequeue());
             else queue.enqueue(s);
-            String[] toPrint = queue.getQ();
-            for (int i = 0; i < toPrint.length; i++) {
-                StdOut.print(toPrint[i] + " ");
-            }
-            StdOut.println();
         }
+        StdOut.print("Left on queue: ");
+        for (String q : queue) {
+            StdOut.print(q + " ");
+        }
+        StdOut.println();
     }
 }
