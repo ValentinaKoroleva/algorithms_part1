@@ -36,8 +36,8 @@ public class LinkedListStack<Item> implements Iterable<Item> {
     }
 
     public void push(Item item) {
-        Node oldFirst = first;
-        first = new Node();
+        Node<Item> oldFirst = first;
+        first = new Node<Item>();
         first.item = item;
         first.next = oldFirst;
     }
